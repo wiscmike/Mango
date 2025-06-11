@@ -1,7 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations;
-
-namespace Mango.Web.Models
+﻿namespace Mango.Web.Blazor.Models
 {
     public class ProductDto
     {
@@ -11,8 +8,5 @@ namespace Mango.Web.Models
         public double Price { get; set; }
         public string CategoryName { get; set; } = string.Empty;
         public string ImageUrl { get; set; } = string.Empty;
-
-        [Range(1, 100)]
-        public int Count { get; set; } = 1;
     }
 }

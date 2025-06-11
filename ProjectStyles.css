@@ -1,0 +1,62 @@
+﻿.round-boarder {
+    border-radius: 20px;
+    border: 1px solid #2d9fd9;
+    /*color: #a0d18c;*/
+    padding-left: 10px;
+}
+
+.round-boarder-focus:focus {
+    outline: none;
+    border: 1px solid #a0d18c;
+}
+
+.input-text-custom {
+    color: black !important;
+    font-weight: 600;
+}
+
+a i.fa-trash {
+    color: #dc3545; /* Default red */
+    transition: transform 0.2s, color 0.2s ease-in-out;
+}
+
+a:hover i.fa-trash {
+    color: #b02a37; /* Slightly darker red */
+    transform: scale(1.2); /* Slight zoom effect */
+}
+
+a:active i.fa-trash {
+    color: #ff4d4d; /* Lighter red */
+    transform: scale(0.9); /* Slight press effect */
+}
+
+a i.fa-pencil {
+    color: #28a745; /* Default green */
+    transition: transform 0.2s, color 0.2s ease-in-out;
+}
+
+a:hover i.fa-pencil {
+    color: #218838; /* Slightly darker green */
+    transform: scale(1.2); /* Slight zoom effect */
+}
+
+a:active i.fa-pencil {
+    color: #71dd8a; /* Lighter green */
+    transform: scale(0.9); /* Slight press effect */
+}
+
+.thumbnail {
+    width: 100px;
+    height: auto;
+}
+
+.icon-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Spacing between icons */
+}
+
+.field-component-label {
+    color: white !important;
+}
+

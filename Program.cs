@@ -1,60 +1,41 @@
-using Mango.Web.Service;
-using Mango.Web.Service.IService;
-using Mango.Web.Utilities;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Mango.Web.Blazor;
+using Mango.Web.Blazor.Services;
+using Mango.Web.Blazor.Utilities;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebAssemblyHostBuilder.CreateDefault(args);
+builder.RootComponents.Add<App>("#app");
+builder.RootComponents.Add<HeadOutlet>("head::after");
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddHttpClient();
-builder.Services.AddHttpClient<ICouponService, CouponService>();
-builder.Services.AddHttpClient<IProductService, ProductService>();
-builder.Services.AddHttpClient<IAuthService, AuthService>();
-
-builder.Services.AddScoped<IBaseService, BaseService>();
+builder.Services.AddLogging();
 builder.Services.AddScoped<ICouponService, CouponService>();
 builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<ITokenProvider, TokenProvider>();
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.ExpireTimeSpan = TimeSpan.FromHours(10);
-        options.LoginPath = "/Auth/Login";
-        options.AccessDeniedPath = "/Auth/AccessDenied";
-    });
 
-string? url = builder.Configuration["ServiceUrls:CouponAPI"];
-StaticDetail.CouponAPIBase = !string.IsNullOrWhiteSpace(url) ? url : string.Empty;
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-url = builder.Configuration["ServiceUrls:ProductAPI"];
-StaticDetail.ProductAPIBase = !string.IsNullOrWhiteSpace(url) ? url : string.Empty;
-
-url = builder.Configuration["ServiceUrls:AuthAPI"];
-StaticDetail.AuthAPIBase = !string.IsNullOrWhiteSpace(url) ? url : string.Empty;
-
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+builder.Services.AddHttpClient(StaticUtility.CouponAPIName, client =>
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
+    client.BaseAddress = new Uri("https://localhost:7001");
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+});
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+builder.Services.AddHttpClient(StaticUtility.ProductAPIName, client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7000");
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+});
 
-app.UseRouting();
-app.UseAuthentication();
-app.UseAuthorization();
+builder.Services.AddHttpClient(StaticUtility.AuthAPIName, client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7002");
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+});
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+builder.Services.AddHttpClient(StaticUtility.CartAPIName, client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7003");
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+});
 
-app.Run();
+await builder.Build().RunAsync();

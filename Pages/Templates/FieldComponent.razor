@@ -1,0 +1,24 @@
+﻿<div class="row mb-3">
+    <div class="col-2">
+        <label class="col-form-label @Class">@Label</label>
+    </div>
+    <div class="col-6">
+        @Control
+        @ValidationControl
+    </div>
+
+</div>
+
+@code {
+    [Parameter]
+    public string? Class { get; set; }
+
+    [Parameter]
+    public string? Label { get; set; }
+
+    [Parameter]
+    public RenderFragment? Control { get; set; }
+
+    [Parameter]
+    public RenderFragment? ValidationControl { get; set; }
+}

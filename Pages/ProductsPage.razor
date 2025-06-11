@@ -1,0 +1,72 @@
+﻿@page "/products"
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient ms-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="text-white">Products List</h1>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <div class="row pb-3">
+            <div class="col-6">
+            </div>
+            <div class="col-6 text-end">
+                <NavLink class="btn btn-outline-primary" href="/product-add-edit">
+                    <i class="bi bi-plus-square"></i> Create New Product
+                </NavLink>
+            </div>
+        </div>
+
+        @if (Products != null && Products.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Category Name</th>
+                        <th>Image</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Products)
+                    {
+                        <tr>
+                            <td>@product.Name</td>
+                            <td style="width: 650px;">@product.Description</td>
+                            <td>@(product.Price.ToString("c"))</td>
+                            <td>@product.CategoryName</td>
+                            <td>
+                                <img src="@product.ImageUrl" class="thumbnail" />
+                            </td>
+                            <td class="text-center">
+                                <a href="/product-add-edit/@product.ProductId" class="me-2">
+                                    <i class="fa fa-pencil" aria-hidden="true" title="Edit Product"></i>
+                                </a>
+
+                                <a @onclick="() => DeleteProduct(product.ProductId)">
+                                    <i class="fa fa-trash" aria-hidden="true" title="Delete Product"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No products found!</p>
+        }
+    </div>
+</div>
+
+@code {
+
+}
+
+
+

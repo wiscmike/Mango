@@ -1,4 +1,4 @@
-﻿namespace Mango.Web.Models;
+﻿namespace Mango.Web.Blazor.Models;
 
 public class UserDto
 {

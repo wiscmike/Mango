@@ -1,0 +1,65 @@
+﻿@page "/coupons"
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient ms-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="text-white">Coupons List</h1>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <div class="row pb-3">
+            <div class="col-6">
+            </div>
+            <div class="col-6 text-end">
+                <NavLink class="btn btn-outline-primary" href="/coupon-add-edit">
+                    <i class="bi bi-plus-square"></i> Create New Coupon
+                </NavLink>
+            </div>
+        </div>
+
+        @if (Coupons != null && Coupons.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Coupon Code</th>
+                        <th>Discount Amount</th>
+                        <th>Minimum Amount</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var coupon in Coupons)
+                    {
+                        <tr>
+                            <td>@coupon.CouponCode</td>
+                            <td>@(coupon.DiscountAmount.ToString("c"))</td>
+                            <td>@(coupon.MinAmount.ToString("c"))</td>
+                            <td class="text-center">
+                                <a href="/coupon-add-edit/@coupon.CouponId" class="me-2">
+                                    <i class="fa fa-pencil" aria-hidden="true" title="Edit Coupon"></i>
+                                </a>
+
+                                <a @onclick="() => DeleteCoupon(coupon.CouponId)">
+                                    <i class="fa fa-trash" aria-hidden="true" title="Delete Coupon"></i>
+                                 </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No coupons available.</p>
+        }
+    </div>
+</div>
+
+@code {
+  
+}
+
+

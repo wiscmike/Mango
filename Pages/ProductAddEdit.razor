@@ -1,0 +1,69 @@
+﻿@page "/product-add-edit/{Id:int?}"
+@using Mango.Web.Blazor.Pages.Templates
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient ms-0 py-3">
+        <h1 class="text-white text-center">@headerTitle</h1>
+
+        <hr />
+        <div class="row mt-15 mx-auto border-2 rounded-3 p-4r">
+            <EditForm Model="@Product" OnValidSubmit="@OnSubmitForm">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <FieldComponent Label="Product Name" class="field-component-label">
+                    <Control>
+                        <InputText @bind-Value="@Product.Name" class="form-control round-boarder input-text-custom" />
+                    </Control>
+                    <ValidationControl>
+                        <ValidationMessage For="@(() => Product.Name)" class="text-danger" />
+                    </ValidationControl>
+                </FieldComponent>
+
+                <FieldComponent Label="Description" class="field-component-label">
+                    <Control>
+                        <InputTextArea @bind-Value="@Product.Description" rows="4" class="form-control round-boarder input-text-custom" />
+                    </Control>
+                    <ValidationControl>
+                        <ValidationMessage For="@(() => Product.Description)" class="text-danger" />
+                    </ValidationControl>
+                </FieldComponent>
+
+                <FieldComponent Label="Price" class="field-component-label">
+                    <Control>
+                        <InputNumber @bind-Value="@Product.Price" class="form-control round-boarder input-text-custom" />
+                    </Control>
+                    <ValidationControl>
+                        <ValidationMessage For="@(() => Product.Price)" class="text-danger" />
+                    </ValidationControl>
+                </FieldComponent>
+
+                <FieldComponent Label="Category Name" class="field-component-label">
+                    <Control>
+                        <InputText @bind-Value="@Product.CategoryName" class="form-control round-boarder input-text-custom" />
+                    </Control>
+                    <ValidationControl>
+                        <ValidationMessage For="@(() => Product.CategoryName)" class="text-danger" />
+                    </ValidationControl>
+                </FieldComponent>
+
+                <FieldComponent Label="Image Url" class="field-component-label">
+                    <Control>
+                        <InputText @bind-Value="@Product.ImageUrl" class="form-control round-boarder input-text-custom" />
+                    </Control>
+                    <ValidationControl>
+                        <ValidationMessage For="@(() => Product.ImageUrl)" class="text-danger" />
+                    </ValidationControl>
+                </FieldComponent>
+
+                <div class="row">
+                    <div class="col-8 d-flex justify-content-end">
+                        <button class="btn btn-secondary me-2" @onclick="@(() => OnCancel())">Cancel</button>
+                        <button class="btn btn-primary" type="submit">Save</button>
+                    </div>
+                </div>
+
+            </EditForm>
+        </div>
+    </div>
+</div>

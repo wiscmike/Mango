@@ -1,6 +1,6 @@
-﻿using static Mango.Web.Utilities.StaticDetail;
+﻿using static Mango.Web.Blazor.Utilities.StaticUtility;
 
-namespace Mango.Web.Models;
+namespace Mango.Web.Blazor.Models;
 
 public class RequestDto
 {
