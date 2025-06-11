@@ -1,0 +1,116 @@
+﻿@model IEnumerable<ProductDto>
+
+	<head>
+		<style>
+			a i.fa-trash {
+				color: #dc3545; /* Default red */
+				transition: transform 0.2s, color 0.2s ease-in-out;
+			}
+
+			a:hover i.fa-trash {
+				color: #b02a37; /* Slightly darker red */
+				transform: scale(1.2); /* Slight zoom effect */
+			}
+
+			a:active i.fa-trash {
+				color: #ff4d4d; /* Lighter red */
+				transform: scale(0.9); /* Slight press effect */
+			}
+
+			a i.fa-pencil {
+				color: #28a745; /* Default green */
+				transition: transform 0.2s, color 0.2s ease-in-out;
+			}
+
+			a:hover i.fa-pencil {
+				color: #218838; /* Slightly darker green */
+				transform: scale(1.2); /* Slight zoom effect */
+			}
+
+			a:active i.fa-pencil {
+				color: #71dd8a; /* Lighter green */
+				transform: scale(0.9); /* Slight press effect */
+			}
+			.thumbnail {
+				width: 100px;
+				height: auto;
+			}
+
+			.icon-actions {
+				display: flex;
+				align-items: center;
+				gap: 10px; /* Spacing between icons */
+			}
+		</style>
+	</head>
+<div class="card shadow border-0 mt-4">
+	<div class="card-header bg-secondary bg-gradient ml-0 py-3">
+		<div class="row">
+			<div class="col-12 text-center">
+				<h1 class="text-white">Products List</h1>
+			</div>
+		</div>
+	</div>
+	<div class="card-body p-4">
+		<div class="row pb-3">
+			<div class="col-6 text-end">
+				<a asp-action="ProductCreate" class="btn btn-outline-primary"><i class="bi bi-plus-square"></i> Create New Product</a>
+			</div>
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>
+						Product Name
+					</th>
+					<th>
+						Description
+					</th>
+					<th>
+						Price
+					</th>
+					<th>
+						Category Name
+					</th>
+					<th>
+						Image
+					</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach(var product in Model)
+				{
+				<tr>
+					<td>
+						@product.Name
+					</td>
+					<td>
+						@product.Description
+					</td>
+					<td>
+						@(product.Price.ToString("c"))
+					</td>
+					<td>
+						@product.CategoryName
+					</td>
+					<td>
+						<img src="@product.ImageUrl" class="thumbnail" />
+					</td>
+					<td class="icon-actions">
+						<a asp-action="ProductEdit" asp-route-couponId="@product.ProductId" title="Edit Product">
+							<i class="fa fa-pencil"></i>
+						</a>
+						<a asp-action="ProductDelete" asp-route-couponId="@product.ProductId" title="Delete Product">
+							<i class="fa fa-trash"></i>
+						</a>
+					</td>
+
+				</tr>
+				}
+			</tbody>
+		</table>
+
+	</div>
+
+</div>
